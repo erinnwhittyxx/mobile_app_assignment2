@@ -2,4 +2,6 @@
     <string name="app_name">Vessel Tracker</string>
     <string name="button_addVessel">Add Vessel</string>
     <string name="hint_vesselTitle">Vessel Name</string>
+    <string name="hint_vesselArrivalTime">Arrival Time</string>
+    <string name="hint_vesselDraught">Draught</string>
 </resources>
