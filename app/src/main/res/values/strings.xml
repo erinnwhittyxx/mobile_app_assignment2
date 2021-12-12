@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Shipping</string>
+    <string name="app_name">Vessel Tracker</string>
+    <string name="button_addVessel">Add Vessel</string>
+    <string name="hint_vesselTitle">Vessel Name</string>
 </resources>

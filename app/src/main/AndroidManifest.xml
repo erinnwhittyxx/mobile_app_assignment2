@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shipping">
         <activity
-            android:name=".ShippingActivity"
+            android:name=".activites.VesselActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
