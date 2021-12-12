@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activites.VesselActivity">
+    tools:context=".activities.VesselActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,12 +41,12 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/vesselTitle"
+                    android:id="@+id/vesselName"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
-                    android:hint="@string/hint_vesselTitle"
+                    android:hint="@string/hint_vesselName"
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
