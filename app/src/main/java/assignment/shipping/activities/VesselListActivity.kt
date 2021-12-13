@@ -51,4 +51,9 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
         val launcherIntent = Intent(this, VesselActivity::class.java)
         startActivityForResult(launcherIntent,0)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 }

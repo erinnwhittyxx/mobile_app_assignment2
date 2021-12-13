@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginTop="22dp"
             android:textSize="30sp"
             tools:text="Name" />
 
@@ -26,13 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/arrivalTime"
             tools:text="Arrival Time" />
-
-        <TextView
-            android:id="@+id/draught"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/draught"
-            tools:text="Draught" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

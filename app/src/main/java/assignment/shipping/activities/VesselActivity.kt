@@ -1,52 +1,79 @@
 package assignment.shipping.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import assignment.shipping.R
 import assignment.shipping.databinding.ActivityShippingBinding
+import assignment.shipping.helpers.showImagePicker
 import assignment.shipping.main.MainApp
 import assignment.shipping.models.VesselModel
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 import timber.log.Timber.i
 
 
 class VesselActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityShippingBinding
     var vessel = VesselModel()
     lateinit var app: MainApp
 
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
+    val IMAGE_REQUEST = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var edit = false
+
         binding = ActivityShippingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as MainApp
-        i("Vessel Activity Started")
+
+        i("Vessel Activity started.")
 
         if (intent.hasExtra("vessel_edit")) {
+            edit = true
             vessel = intent.extras?.getParcelable("vessel_edit")!!
             binding.vesselName.setText(vessel.name)
             binding.arrivalTime.setText(vessel.arrivalTime)
+            binding.btnAdd.setText(R.string.save_vessel)
+            Picasso.get()
+                .load(vessel.image)
+                .into(binding.vesselImage)
         }
 
         binding.btnAdd.setOnClickListener() {
             vessel.name = binding.vesselName.text.toString()
             vessel.arrivalTime = binding.arrivalTime.text.toString()
-            if (vessel.name.isNotEmpty()) {
-                app.vessels.create(vessel.copy())
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+            if (vessel.name.isEmpty()) {
+                Snackbar.make(it,R.string.enter_vessel_name, Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if (edit) {
+                    app.vessels.update(vessel.copy())
+                } else {
+                    app.vessels.create(vessel.copy())
+                }
             }
+            i("Vessel Added: $vessel")
+            setResult(RESULT_OK)
+            finish()
         }
+
+        binding.chooseImage.setOnClickListener {
+            showImagePicker(imageIntentLauncher)
+        }
+
+        registerImagePickerCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -61,6 +88,25 @@ class VesselActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+                            vessel.image = result.data!!.data!!
+                            Picasso.get()
+                                .load(vessel.image)
+                                .into(binding.vesselImage)
+                        }
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 }
 
