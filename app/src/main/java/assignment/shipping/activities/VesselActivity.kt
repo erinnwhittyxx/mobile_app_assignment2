@@ -1,6 +1,7 @@
 package assignment.shipping.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +12,7 @@ import assignment.shipping.R
 import assignment.shipping.databinding.ActivityShippingBinding
 import assignment.shipping.helpers.showImagePicker
 import assignment.shipping.main.MainApp
+import assignment.shipping.models.Location
 import assignment.shipping.models.VesselModel
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
@@ -24,7 +26,9 @@ class VesselActivity : AppCompatActivity() {
     lateinit var app: MainApp
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    val IMAGE_REQUEST = 1
+
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +53,9 @@ class VesselActivity : AppCompatActivity() {
             Picasso.get()
                 .load(vessel.image)
                 .into(binding.vesselImage)
+            if (vessel.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_vessel_image)
+            }
         }
 
         binding.btnAdd.setOnClickListener() {
@@ -73,7 +80,14 @@ class VesselActivity : AppCompatActivity() {
             showImagePicker(imageIntentLauncher)
         }
 
+        binding.vesselLocation.setOnClickListener {
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
         registerImagePickerCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -102,7 +116,25 @@ class VesselActivity : AppCompatActivity() {
                             Picasso.get()
                                 .load(vessel.image)
                                 .into(binding.vesselImage)
+                            binding.chooseImage.setText(R.string.change_vessel_image)
                         }
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            location = result.data!!.extras?.getParcelable("location")!!
+                            i("Location == $location")
+                        } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }

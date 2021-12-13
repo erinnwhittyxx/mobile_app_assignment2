@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import assignment.shipping.databinding.CardVesselBinding
 import assignment.shipping.models.VesselModel
+import com.squareup.picasso.Picasso
 
 interface VesselListener {
     fun onVesselClick(vessel: VesselModel)
@@ -34,6 +35,7 @@ class VesselAdapter constructor(private var vessels: List<VesselModel>,
         fun bind(vessel: VesselModel, listener: VesselListener) {
             binding.vesselName.text = vessel.name
             binding.arrivalTime.text = vessel.arrivalTime
+            Picasso.get().load(vessel.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onVesselClick(vessel) }
         }
     }

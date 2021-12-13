@@ -10,4 +10,8 @@
     <string name="save_vessel"> Save Vessel </string>
     <string name="button_addImage"> Add Vessel Image </string>
     <string name="select_vessel_image">Select Vessel Image</string>
+    <string name="change_vessel_image">Change Vessel Image</string>
+    <string name="button_location">Enter Location</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_map">Map</string>
 </resources>

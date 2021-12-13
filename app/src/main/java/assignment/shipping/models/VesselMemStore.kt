@@ -27,6 +27,7 @@ class VesselMemStore : VesselStore {
         if (foundVessel != null) {
             foundVessel.name = vessel.name
             foundVessel.arrivalTime = vessel.arrivalTime
+            foundVessel.image = vessel.image
             logAll()
         }
     }

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import assignment.shipping.R
@@ -17,6 +19,7 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityVesselListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,8 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = VesselAdapter(app.vessels.findAll(),this)
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -41,7 +46,7 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, VesselActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -49,11 +54,13 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
 
     override fun onVesselClick(vessel: VesselModel) {
         val launcherIntent = Intent(this, VesselActivity::class.java)
-        startActivityForResult(launcherIntent,0)
+        launcherIntent.putExtra("vessel_edit", vessel)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 }
