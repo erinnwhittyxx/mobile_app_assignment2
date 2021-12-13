@@ -1,21 +1,19 @@
 package assignment.shipping.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import assignment.shipping.R
+import assignment.shipping.adapters.VesselAdapter
+import assignment.shipping.adapters.VesselListener
 import assignment.shipping.databinding.ActivityVesselListBinding
-import assignment.shipping.databinding.CardVesselBinding
 import assignment.shipping.main.MainApp
 import assignment.shipping.models.VesselModel
 
-class VesselListActivity : AppCompatActivity() {
+class VesselListActivity : AppCompatActivity(), VesselListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityVesselListBinding
@@ -31,7 +29,7 @@ class VesselListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = VesselAdapter(app.vessels)
+        binding.recyclerView.adapter = VesselAdapter(app.vessels.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -48,31 +46,9 @@ class VesselListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-}
 
-class VesselAdapter constructor(private var vessels: List<VesselModel>) :
-    RecyclerView.Adapter<VesselAdapter.MainHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        val binding = CardVesselBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-
-        return MainHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val vessel = vessels[holder.adapterPosition]
-        holder.bind(vessel)
-    }
-
-    override fun getItemCount(): Int = vessels.size
-
-    class MainHolder(private val binding : CardVesselBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(vessel: VesselModel) {
-            binding.vesselName.text = vessel.name
-            binding.description.text = vessel.arrivalTime
-        }
+    override fun onVesselClick(vessel: VesselModel) {
+        val launcherIntent = Intent(this, VesselActivity::class.java)
+        startActivityForResult(launcherIntent,0)
     }
 }

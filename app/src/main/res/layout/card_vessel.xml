@@ -18,14 +18,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textSize="30sp"
-            tools:text="A Title" />
+            tools:text="Name" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/arrivalTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/vesselName"
-            tools:text="A Description" />
+            android:layout_below="@id/arrivalTime"
+            tools:text="Arrival Time" />
+
+        <TextView
+            android:id="@+id/draught"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/draught"
+            tools:text="Draught" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
