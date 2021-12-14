@@ -37,6 +37,10 @@ class VesselMemStore : VesselStore {
         }
     }
 
+    override fun delete(vessel: VesselModel) {
+        // TODO: 14/12/2021  
+    }
+
     private fun logAll() {
         vessels.forEach { i("$it") }
     }

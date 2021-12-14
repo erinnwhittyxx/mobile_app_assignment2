@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Vessel Logger</string>
+
     <string name="menu_addVessel">Add</string>
-    <string name="button_addVessel">Add Vessel</string>
+    <string name="menu_deletevessel"> Delete </string>
     <string name="menu_backVessel">Back</string>
+
+    <string name="button_addVessel">Add Vessel</string>
     <string name="hint_vesselName">Vessel Name</string>
     <string name="hint_vesselArrivalTime">Estimated Arrival Time</string>
     <string name="hint_vesselDepartureTime">Estimated Departure Time</string>
@@ -15,8 +18,7 @@
     <string name="button_location">Enter Location</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_map">Map</string>
-    <string name="button_register">Register</string>
-    <string name="button_signin">already have an account</string>
+
 
 
 </resources>

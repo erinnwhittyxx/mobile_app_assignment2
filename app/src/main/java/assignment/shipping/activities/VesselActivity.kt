@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import timber.log.Timber.i
 import timber.log.Timber.v
+import java.nio.file.Files.delete
 
 
 class VesselActivity : AppCompatActivity() {
@@ -106,6 +107,10 @@ class VesselActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.delete -> {
+                app.vessels.delete(vessel)
+                finish()
+            }
             R.id.item_back -> {
                 finish()
             }
