@@ -34,7 +34,9 @@ class VesselAdapter constructor(private var vessels: List<VesselModel>,
 
         fun bind(vessel: VesselModel, listener: VesselListener) {
             binding.vesselName.text = vessel.name
-            binding.arrivalTime.text = vessel.arrivalTime
+            binding.arrivalTime.text = vessel.arrivalTime.toString()
+            binding.departureTime.text = vessel.departureTime.toString()
+            binding.draught.text = vessel.draught.toString()
             Picasso.get().load(vessel.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onVesselClick(vessel) }
         }

@@ -17,6 +17,7 @@ import assignment.shipping.models.VesselModel
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import timber.log.Timber.i
+import timber.log.Timber.v
 
 
 class VesselActivity : AppCompatActivity() {
@@ -26,9 +27,7 @@ class VesselActivity : AppCompatActivity() {
     lateinit var app: MainApp
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +47,9 @@ class VesselActivity : AppCompatActivity() {
             edit = true
             vessel = intent.extras?.getParcelable("vessel_edit")!!
             binding.vesselName.setText(vessel.name)
-            binding.arrivalTime.setText(vessel.arrivalTime)
+            binding.arrivalTime.setText(vessel.arrivalTime.toString())
+            binding.departureTime.setText(vessel.departureTime.toString())
+            binding.draught.setText(vessel.draught.toString())
             binding.btnAdd.setText(R.string.save_vessel)
             Picasso.get()
                 .load(vessel.image)
@@ -60,7 +61,9 @@ class VesselActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener() {
             vessel.name = binding.vesselName.text.toString()
-            vessel.arrivalTime = binding.arrivalTime.text.toString()
+            vessel.arrivalTime = binding.arrivalTime.text.toString().toLong()
+            vessel.departureTime = binding.departureTime.text.toString().toLong()
+            vessel.draught = binding.draught.text.toString().toDouble()
             if (vessel.name.isEmpty()) {
                 Snackbar.make(it,R.string.enter_vessel_name, Snackbar.LENGTH_LONG)
                     .show()
@@ -81,6 +84,12 @@ class VesselActivity : AppCompatActivity() {
         }
 
         binding.vesselLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (vessel.zoom != 0f) {
+                location.lat =  vessel.lat
+                location.lng = vessel.lng
+                location.zoom = vessel.zoom
+            }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
             mapIntentLauncher.launch(launcherIntent)
@@ -132,9 +141,12 @@ class VesselActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            location = result.data!!.extras?.getParcelable("location")!!
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
                             i("Location == $location")
-                        } // end of if
+                            vessel.lat = location.lat
+                            vessel.lng = location.lng
+                            vessel.zoom = location.zoom
+                        }
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }

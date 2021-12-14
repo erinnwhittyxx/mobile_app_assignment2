@@ -23,11 +23,16 @@ class VesselMemStore : VesselStore {
     }
 
     override fun update(vessel: VesselModel) {
-        var foundVessel: VesselModel? = vessels.find { p -> p.id == vessel.id }
+        val foundVessel: VesselModel? = vessels.find { p -> p.id == vessel.id }
         if (foundVessel != null) {
             foundVessel.name = vessel.name
             foundVessel.arrivalTime = vessel.arrivalTime
+            foundVessel.departureTime = vessel.departureTime
+            foundVessel.draught = vessel.draught
             foundVessel.image = vessel.image
+            foundVessel.lat = vessel.lat
+            foundVessel.lng = vessel.lng
+            foundVessel.zoom = vessel.zoom
             logAll()
         }
     }

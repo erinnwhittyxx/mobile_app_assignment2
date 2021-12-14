@@ -32,7 +32,7 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = VesselAdapter(app.vessels.findAll(),this)
+        loadVessels()
 
         registerRefreshCallback()
     }
@@ -61,6 +61,15 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+            { loadVessels() }
+    }
+
+    private fun loadVessels() {
+        showVessels(app.vessels.findAll())
+    }
+
+    fun showVessels (vessels: List<VesselModel>) {
+        binding.recyclerView.adapter = VesselAdapter(vessels, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 }
