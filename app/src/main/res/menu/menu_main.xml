@@ -9,7 +9,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/item_cancel"
-        android:title="@string/menu_cancelVessel"
+        android:id="@+id/item_back"
+        android:title="@string/menu_backVessel"
         app:showAsAction="always"/>
 </menu>

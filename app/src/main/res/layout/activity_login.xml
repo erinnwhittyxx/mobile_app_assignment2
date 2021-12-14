@@ -19,7 +19,7 @@
         android:textStyle="bold"
         android:gravity="center_horizontal"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="80dp"/>
 
     <EditText
         android:id="@+id/email"
@@ -44,10 +44,11 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/signin"
+        android:id="@+id/login"
         android:text="Sign in"
         android:textSize="20dp"
         android:backgroundTint="@color/black"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="30dp"/>
 
 

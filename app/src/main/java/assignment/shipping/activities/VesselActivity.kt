@@ -76,7 +76,7 @@ class VesselActivity : AppCompatActivity() {
             }
             i("Vessel Added: $vessel")
             setResult(RESULT_OK)
-            finish()
+            setContentView(binding.root)
         }
 
         binding.chooseImage.setOnClickListener {
@@ -106,7 +106,7 @@ class VesselActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item_cancel -> {
+            R.id.item_back -> {
                 finish()
             }
         }
