@@ -22,10 +22,20 @@
         android:layout_marginBottom="80dp"/>
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/firstname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Email"
+        android:hint="First Name"
+        android:textColorHint="@color/black"
+        android:textSize="25dp"
+        android:layout_marginBottom="30dp"
+        android:paddingLeft="20dp"/>
+
+    <EditText
+        android:id="@+id/lastname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Last Name"
         android:textColorHint="@color/black"
         android:textSize="25dp"
         android:layout_marginBottom="30dp"

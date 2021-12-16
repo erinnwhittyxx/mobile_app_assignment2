@@ -1,5 +1,6 @@
 package assignment.shipping.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -68,6 +69,7 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
         showVessels(app.vessels.findAll())
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun showVessels (vessels: List<VesselModel>) {
         binding.recyclerView.adapter = VesselAdapter(vessels, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()

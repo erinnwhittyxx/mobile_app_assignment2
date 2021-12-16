@@ -26,34 +26,44 @@
             android:layout_marginBottom="50dp"/>
     
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/signup_firstname"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Email"
+            android:hint="First Name"
             android:textColorHint="@color/black"
             android:textSize="25dp"
             android:layout_marginBottom="30dp"
-            android:paddingLeft="20dp"/>
+            android:paddingLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/signup_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Last Name"
+            android:textColorHint="@color/black"
+            android:textSize="25dp"
+            android:layout_marginBottom="30dp"
+            android:paddingLeft="10dp"/>
     
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/signup_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Password"
             android:textColorHint="@color/black"
             android:textSize="25dp"
             android:layout_marginBottom="20dp"
-            android:paddingLeft="20dp"/>
+            android:paddingLeft="10dp"/>
     
         <EditText
-            android:id="@+id/repassword"
+            android:id="@+id/signup_repassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Confirm Password"
             android:textColorHint="@color/black"
             android:textSize="25dp"
-            android:layout_marginBottom="80dp"
-            android:paddingLeft="20dp"/>
+            android:layout_marginBottom="50dp"
+            android:paddingLeft="10dp"/>
     
         <Button
             android:layout_width="match_parent"

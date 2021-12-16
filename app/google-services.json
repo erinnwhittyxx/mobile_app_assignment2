@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "537510282466",
+    "project_id": "chrome-plateau-335021",
+    "storage_bucket": "chrome-plateau-335021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537510282466:android:99953d4b849da000ff4abb",
+        "android_client_info": {
+          "package_name": "assignment.shipping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537510282466-shmkvp1sg9h63udd7ijfsrutfbilavq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7iupT2SY3nLB3JzydhcBBP384NRlsbIo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537510282466-shmkvp1sg9h63udd7ijfsrutfbilavq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

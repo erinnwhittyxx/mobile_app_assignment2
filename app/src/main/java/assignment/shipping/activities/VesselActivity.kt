@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import assignment.shipping.R
@@ -15,6 +16,10 @@ import assignment.shipping.main.MainApp
 import assignment.shipping.models.Location
 import assignment.shipping.models.VesselModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import timber.log.Timber.i
 import timber.log.Timber.v
@@ -29,6 +34,8 @@ class VesselActivity : AppCompatActivity() {
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+//    private lateinit var database : DatabaseReference
+    val database = Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +72,7 @@ class VesselActivity : AppCompatActivity() {
             vessel.arrivalTime = binding.arrivalTime.text.toString().toLong()
             vessel.departureTime = binding.departureTime.text.toString().toLong()
             vessel.draught = binding.draught.text.toString().toDouble()
+
             if (vessel.name.isEmpty()) {
                 Snackbar.make(it,R.string.enter_vessel_name, Snackbar.LENGTH_LONG)
                     .show()
@@ -78,6 +86,26 @@ class VesselActivity : AppCompatActivity() {
             i("Vessel Added: $vessel")
             setResult(RESULT_OK)
             setContentView(binding.root)
+
+            val database = FirebaseDatabase.getInstance().getReference("/models/VesselModel")
+            val vessels = VesselModel(vessel.id, vessel.name, vessel.arrivalTime, vessel.departureTime, vessel.draught)
+
+            database.setValue("Hello, World!")
+            
+            database.child(vessel.name).setValue(vessels).addOnSuccessListener {
+
+                binding.vesselName.text.clear()
+                binding.arrivalTime.text.clear()
+                binding.departureTime.text.clear()
+                binding.draught.text.clear()
+
+                Toast.makeText(this, "Successfully Saved", Toast.LENGTH_SHORT).show()
+
+            }.addOnFailureListener {
+
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+
+            }
         }
 
         binding.chooseImage.setOnClickListener {
@@ -98,6 +126,8 @@ class VesselActivity : AppCompatActivity() {
 
         registerImagePickerCallback()
         registerMapCallback()
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
