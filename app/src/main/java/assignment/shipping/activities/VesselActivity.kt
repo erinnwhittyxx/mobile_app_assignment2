@@ -89,8 +89,6 @@ class VesselActivity : AppCompatActivity() {
 
             val database = FirebaseDatabase.getInstance().getReference("/models/VesselModel")
             val vessels = VesselModel(vessel.id, vessel.name, vessel.arrivalTime, vessel.departureTime, vessel.draught)
-
-            database.setValue("Hello, World!")
             
             database.child(vessel.name).setValue(vessels).addOnSuccessListener {
 

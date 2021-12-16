@@ -63,6 +63,14 @@ class VesselJSONStore(private val context: Context) : VesselStore {
         serialize()
     }
 
+    override fun findOne(id: Long): VesselModel? {
+        return vessels.find { p -> p.id == id }
+    }
+
+    override fun findByName(name: String): VesselModel? {
+        return vessels.find { p -> p.name == name }
+    }
+
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(vessels, listType)
         write(context, JSON_FILE, jsonString)

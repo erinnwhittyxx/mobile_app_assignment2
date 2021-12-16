@@ -38,7 +38,15 @@ class VesselMemStore : VesselStore {
     }
 
     override fun delete(vessel: VesselModel) {
-        // TODO: 14/12/2021  
+        TODO()
+    }
+
+    override fun findOne(id: Long): VesselModel? {
+        TODO()
+    }
+
+    override fun findByName(name: String): VesselModel? {
+        TODO()
     }
 
     private fun logAll() {
