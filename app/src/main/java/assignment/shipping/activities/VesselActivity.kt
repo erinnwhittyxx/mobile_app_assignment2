@@ -34,8 +34,7 @@ class VesselActivity : AppCompatActivity() {
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-//    private lateinit var database : DatabaseReference
-    val database = Firebase.database
+    private lateinit var database : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,23 +86,20 @@ class VesselActivity : AppCompatActivity() {
             setResult(RESULT_OK)
             setContentView(binding.root)
 
-            val database = FirebaseDatabase.getInstance().getReference("/models/VesselModel")
-            val vessels = VesselModel(vessel.id, vessel.name, vessel.arrivalTime, vessel.departureTime, vessel.draught)
-
-            database.setValue("Hello, World!")
-            
-            database.child(vessel.name).setValue(vessels).addOnSuccessListener {
+            database = FirebaseDatabase.getInstance().getReference("models/VesselModel")
+            val Vessel = VesselModel(vessel.id,vessel.name,vessel.arrivalTime,vessel.departureTime,vessel.draught)
+            database.child(vessel.name).setValue(Vessel).addOnSuccessListener {
 
                 binding.vesselName.text.clear()
                 binding.arrivalTime.text.clear()
                 binding.departureTime.text.clear()
                 binding.draught.text.clear()
 
-                Toast.makeText(this, "Successfully Saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Successfully Saved",Toast.LENGTH_SHORT).show()
 
-            }.addOnFailureListener {
+            }.addOnFailureListener{
 
-                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Failed",Toast.LENGTH_SHORT).show()
 
             }
         }
