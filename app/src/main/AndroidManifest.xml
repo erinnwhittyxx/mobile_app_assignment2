@@ -16,9 +16,6 @@
         <activity
             android:name=".activities.VesselMapsActivity"
             android:exported="false" />
-        <activity
-            android:name=".activities.VesselPlacemarksActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -29,10 +26,10 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".activities.VesselListActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.VesselListActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -30,7 +30,7 @@ class VesselActivity : AppCompatActivity() {
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var database : DatabaseReference
+//    private lateinit var database : DatabaseReference
 
     var edit = false
 
@@ -81,24 +81,25 @@ class VesselActivity : AppCompatActivity() {
             i("Vessel Added: $vessel")
             setResult(RESULT_OK)
             setContentView(binding.root)
+            finish()
 
-            val database = FirebaseDatabase.getInstance().getReference("/models/VesselModel")
-            val vessels = VesselModel(vessel.id, vessel.name, vessel.arrivalTime, vessel.departureTime, vessel.draught)
-            
-            database.child(vessel.name).setValue(vessels).addOnSuccessListener {
-
-                binding.vesselName.text.clear()
-                binding.arrivalTime.text.clear()
-                binding.departureTime.text.clear()
-                binding.draught.text.clear()
-
-                Toast.makeText(this, "Successfully Saved", Toast.LENGTH_SHORT).show()
-
-            }.addOnFailureListener {
-
-                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-
-            }
+//            val database = FirebaseDatabase.getInstance().getReference("/models/VesselModel")
+//            val vessels = VesselModel(vessel.id, vessel.name, vessel.arrivalTime, vessel.departureTime, vessel.draught)
+//
+//            database.child(vessel.name).setValue(vessels).addOnSuccessListener {
+//
+//                binding.vesselName.text.clear()
+//                binding.arrivalTime.text.clear()
+//                binding.departureTime.text.clear()
+//                binding.draught.text.clear()
+//
+//                Toast.makeText(this, "Successfully Saved", Toast.LENGTH_SHORT).show()
+//
+//            }.addOnFailureListener {
+//
+//                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+//
+//            }
         }
 
         binding.chooseImage.setOnClickListener {
@@ -157,7 +158,7 @@ class VesselActivity : AppCompatActivity() {
                                 .load(vessel.image)
                                 .into(binding.vesselImage)
                             binding.chooseImage.setText(R.string.change_vessel_image)
-                        }
+                        } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
