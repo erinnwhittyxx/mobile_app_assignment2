@@ -44,7 +44,8 @@ class VesselJSONStore(private val context: Context) : VesselStore {
 
 
     override fun update(vessel: VesselModel) {
-        val foundVessel: VesselModel? = vessels.find { p -> p.id == vessel.id }
+        val vesselsList = findAll() as ArrayList<VesselModel>
+        var foundVessel: VesselModel? = vesselsList.find { p -> p.id == vessel.id }
         if (foundVessel != null) {
             foundVessel.name = vessel.name
             foundVessel.arrivalTime = vessel.arrivalTime
@@ -60,6 +61,11 @@ class VesselJSONStore(private val context: Context) : VesselStore {
 
     override fun delete(vessel: VesselModel) {
         vessels.remove(vessel)
+        serialize()
+    }
+
+    override fun deleteAll(vessel: VesselModel) {
+        vessels.removeAll(vessels)
         serialize()
     }
 

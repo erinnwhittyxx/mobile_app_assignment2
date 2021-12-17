@@ -38,6 +38,12 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
         loadVessels()
         registerRefreshCallback()
         registerMapCallback()
+
+        binding.deleteAll.setOnClickListener{
+            app.vessels.deleteAll(VesselModel())
+                val launcherIntent = Intent(this, VesselListActivity::class.java)
+                refreshIntentLauncher.launch(launcherIntent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -50,6 +56,10 @@ class VesselListActivity : AppCompatActivity(), VesselListener {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, VesselActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
+            }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, VesselMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)

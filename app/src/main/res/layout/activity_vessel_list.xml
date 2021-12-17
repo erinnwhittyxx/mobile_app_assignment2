@@ -29,4 +29,24 @@
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/deleteAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_corners"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="@string/delete_all_vessel"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_anchor="@+id/recyclerView"
+        app:layout_anchorGravity="bottom|center" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

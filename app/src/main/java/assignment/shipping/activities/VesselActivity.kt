@@ -18,12 +18,8 @@ import assignment.shipping.models.VesselModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import timber.log.Timber.i
-import timber.log.Timber.v
-import java.nio.file.Files.delete
 
 
 class VesselActivity : AppCompatActivity() {
@@ -34,13 +30,12 @@ class VesselActivity : AppCompatActivity() {
 
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-//    private lateinit var database : DatabaseReference
-    val database = Firebase.database
+    private lateinit var database : DatabaseReference
+
+    var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        var edit = false
 
         binding = ActivityShippingBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -111,7 +106,7 @@ class VesselActivity : AppCompatActivity() {
         }
 
         binding.vesselLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
+            val location = Location(52.26697905691473, -7.03113731197637, 15f)
             if (vessel.zoom != 0f) {
                 location.lat =  vessel.lat
                 location.lng = vessel.lng
@@ -129,7 +124,8 @@ class VesselActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_vessel, menu)
+        if (edit) menu.getItem(0).isVisible = true
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -145,6 +141,8 @@ class VesselActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
     private fun registerImagePickerCallback() {
         imageIntentLauncher =

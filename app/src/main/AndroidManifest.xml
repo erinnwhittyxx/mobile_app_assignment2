@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shipping">
         <activity
-            android:name=".activities.RegisterActivity"
+            android:name=".activities.VesselMapsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.VesselPlacemarksActivity"
             android:exported="false" />
 
         <meta-data

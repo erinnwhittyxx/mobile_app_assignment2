@@ -41,6 +41,10 @@ class VesselMemStore : VesselStore {
         TODO()
     }
 
+    override fun deleteAll(vessel: VesselModel) {
+        TODO("Not yet implemented")
+    }
+
     override fun findOne(id: Long): VesselModel? {
         TODO()
     }
